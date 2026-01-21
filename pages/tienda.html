@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda - Orcabet</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Estilos específicos de la tienda */
+        .packs-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; margin-top: 20px; }
+        .pack { 
+            background: #2d2d2d; border: 2px solid #444; border-radius: 15px; 
+            width: 220px; text-align: center; padding: 20px; 
+            transition: 0.3s; cursor: pointer; position: relative;
+        }
+        .pack:hover { transform: scale(1.05); border-color: #ff5e00; box-shadow: 0 0 20px rgba(255,94,0,0.3); }
+        .pack-img { font-size: 80px; margin-bottom: 10px; }
+        .pack h3 { color: white; margin: 10px 0; }
+        .price { background: #ff5e00; color: white; padding: 5px 15px; border-radius: 20px; font-weight: bold; display: inline-block; }
+        
+        /* Modal de apertura */
+        #modalApertura { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(0,0,0,0.9); display: none; 
+            flex-direction: column; justify-content: center; align-items: center; z-index: 1000; 
+        }
+        .cartas-ganadas { display: flex; gap: 15px; margin-top: 20px; flex-wrap: wrap; justify-content: center; }
+        .carta-visual { 
+            width: 150px; height: 220px; background: white; border-radius: 10px; 
+            display: flex; flex-direction: column; align-items: center; 
+            color: black; padding: 5px; animation: popIn 0.5s ease;
+        }
+        .carta-visual img { width: 100%; border-radius: 5px; }
+        @keyframes popIn { from { transform: scale(0); } to { transform: scale(1); } }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo"><a href="../index.html" style="color:#ff5e00;">ORCABET 🦈</a></div>
+        <div class="user-info">
+            <span id="saldoUsuario">Cargando...</span>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Tienda de Sobres</h1>
+        
+        <div class="packs-container">
+            <div class="pack" onclick="comprarSobre('basico', 100)">
+                <div class="pack-img">📦</div>
+                <h3>Sobre Básico</h3>
+                <p>3 Cartas</p>
+                <div class="price">100 🪙</div>
+            </div>
+
+            <div class="pack" onclick="comprarSobre('oro', 500)">
+                <div class="pack-img" style="color: gold;">🏆</div>
+                <h3>Sobre Oro</h3>
+                <p>5 Cartas (1 Rara asegurada)</p>
+                <div class="price">500 🪙</div>
+            </div>
+
+            <div class="pack" onclick="comprarSobre('gratis', 0)">
+                <div class="pack-img" style="color: lightblue;">🎁</div>
+                <h3>Regalo Diario</h3>
+                <p>1 Carta</p>
+                <div class="price">GRATIS</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalApertura">
+        <h2 style="color:white;">¡HAS CONSEGUIDO!</h2>
+        <div class="cartas-ganadas" id="contenedorCartasGanadas"></div>
+        <button onclick="cerrarModal()" style="margin-top: 30px; width: 200px;">Continuar</button>
+    </div>
+
+    <script type="module" src="../js/tienda.js"></script>
+</body>
+</html>
