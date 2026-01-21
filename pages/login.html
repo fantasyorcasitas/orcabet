@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Orcabet</title>
+    <link rel="stylesheet" href="../css/style.css"> </head>
+<body>
+
+    <div class="card centered">
+        <h2>Iniciar Sesión</h2>
+        <form id="loginForm">
+            <label>Correo Electrónico</label>
+            <input type="email" id="loginEmail" placeholder="tu@email.com" required>
+
+            <label>Contraseña</label>
+            <input type="password" id="loginPassword" placeholder="******" required>
+
+            <button type="submit" id="btnLogin">Entrar</button>
+        </form>
+
+        <div class="link">
+            ¿No tienes cuenta? <a href="registro.html">Regístrate</a>
+        </div>
+    </div>
+
+    <script type="module" src="../js/auth.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orcabet - Inicio</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">ORCABET 🦈</div>
+        <div class="user-info">
+            <span id="displayDinero">Cargando... 💰</span>
+            <button id="logoutBtn"><i class="fas fa-sign-out-alt"></i></button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1 id="welcomeMsg">Hola, viajero</h1>
+        
+        <div class="menu-grid">
+            <a href="pages/apuestas.html" class="menu-item">
+                <i class="fas fa-futbol"></i>
+                <h3>Apuestas</h3>
+            </a>
+            <a href="pages/ruleta.html" class="menu-item">
+                <i class="fas fa-dharmachakra"></i>
+                <h3>Ruleta Diaria</h3>
+            </a>
+            <a href="pages/mercado.html" class="menu-item">
+                <i class="fas fa-store"></i>
+                <h3>Mercado</h3>
+            </a>
+            <a href="pages/coleccion.html" class="menu-item">
+                <i class="fas fa-layer-group"></i>
+                <h3>Mi Colección</h3>
+            </a>
+            <a href="pages/tienda.html" class="menu-item">
+                <i class="fas fa-shopping-cart"></i>
+                <h3>Tienda de Sobres</h3>
+            </a>
+            <a href="pages/show-cartas.html" class="menu-item">
+                <i class="fas fa-users"></i>
+                <h3>Show de Cartas</h3>
+            </a>
+        </div>
+    </div>
+
+    <script type="module">
+        import { auth, db } from "./js/app.js";
+        import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        // 1. Verificar si hay usuario conectado
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                // El usuario está logueado, buscamos sus datos en la BD
+                const docRef = doc(db, "usuarios", user.uid);
+                const docSnap = await getDoc(docRef);
+
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+                    // Actualizamos la interfaz
+                    document.getElementById('welcomeMsg').textContent = `Hola, ${data.username}`;
+                    document.getElementById('displayDinero').textContent = `${data.dinero} 🪙`;
+                } else {
+                    console.log("No se encontró el documento del usuario");
+                }
+            } else {
+                // NO hay usuario logueado -> Al Login
+                window.location.href = "pages/login.html";
+            }
+        });
+
+        // Lógica del botón salir
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            signOut(auth).then(() => window.location.href = "pages/login.html");
+        });
+    </script>
+
+</body>
+</html>
